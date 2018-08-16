@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vuesball</title>
-
     <link rel="stylesheet" type="text/css" href="node_modules/bulma/css/bulma.css"/>
     <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
@@ -11,12 +11,8 @@
 <section class="hero is-dark">
     <div class="hero-body">
         <div class="container">
-            <h1 class="title">
-                Vuesball
-            </h1>
-            <h2 class="subtitle">
-                Kickerfeld League Manager (Alpha)
-            </h2>
+            <h1 class="title">Vuesball</h1>
+            <h2 class="subtitle">Kickerfeld League Manager (Alpha)</h2>
         </div>
     </div>
 </section>
@@ -43,14 +39,18 @@
                         <td>
                             <div class="field">
                                 <div class="control">
-                                    <input class="input" type="number" width="4" v-model.number="game.points1">
+                                    <label>
+                                        <input class="input" type="number" width="4" v-model.number="game.points1">
+                                    </label>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="field">
                                 <div class="control">
-                                    <input class="input" type="number" width="4" v-model.number="game.points2">
+                                    <label>
+                                        <input class="input" type="number" width="4" v-model.number="game.points2">
+                                    </label>
                                 </div>
                             </div>
                         </td>
@@ -129,7 +129,6 @@
 
 <script src="node_modules/vue/dist/vue.js"></script>
 <script src="index.js"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </body>
 </html>
