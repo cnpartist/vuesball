@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Vuesball</title>
+
+    <link rel="stylesheet" type="text/css" href="node_modules/bulma/css/bulma.css"/>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body>
+<section class="hero is-dark">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Vuesball
+            </h1>
+            <h2 class="subtitle">
+                Kickerfeld League Manager (Alpha)
+            </h2>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container" id="vuesball">
+        <div class="columns">
+            <div class="column">
+                <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Home</th>
+                        <th>Guest</th>
+                        <th>Points Team 1</th>
+                        <th>Points Team 2</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(game, index) in games" @change="updateTeams" v-if="(!game.team1.hidden && !game.team2.hidden) || game.active">
+                        <td>{{ index + 1}}</td>
+                        <td v-bind:class="{'is-info': game.team1.highlighted }">{{ game.team1.name }}</td>
+                        <td v-bind:class="{'is-info': game.team2.highlighted }">{{ game.team2.name }}</td>
+                        <td>
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="number" width="4" v-model.number="game.points1">
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input" type="number" width="4" v-model.number="game.points2">
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <p class="control">
+                                <a class="button" @click="game.active = !game.active" v-bind:class="{'is-info': game.active, 'is-success': game.points1 && game.points2 }">
+                                      <span class="icon is-small">
+                                        <i class="fas fa-check-circle"></i>
+                                      </span>
+                                </a>
+                            </p>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="column is-4">
+                <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Team</th>
+                        <th title="Games played">GP</th>
+                        <th title="Wins">W</th>
+                        <th title="Draws">D</th>
+                        <th title="Losses">L</th>
+                        <th title="Points">P</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(team, index) in teams">
+                        <td>{{ index + 1}}</td>
+                        <td>{{ team.name }}</td>
+                        <td>{{ team.gamesWon + team.gamesLost + team.gamesDrawn }}</td>
+                        <td>{{ team.gamesWon }}</td>
+                        <td>{{ team.gamesDrawn }}</td>
+                        <td>{{ team.gamesLost }}</td>
+                        <td>{{ team.points }}</td>
+                        <td>
+                            <div class="field has-addons">
+                                <p class="control">
+                                    <a class="button" @click="team.highlighted = !team.highlighted" v-bind:class="{'has-text-info': team.highlighted }">
+                                      <span class="icon is-small">
+                                        <i class="fas fa-eye"></i>
+                                      </span>
+                                    </a>
+                                </p>
+                                <p class="control">
+                                    <a class="button" @click="team.hidden = !team.hidden" v-bind:class="{'has-text-danger': team.hidden }">
+                                      <span class="icon is-small">
+                                        <i class="fas fa-minus-circle"></i>
+                                      </span>
+                                    </a>
+                                </p>
+                                <p class="control">
+                                    <a class="button" @click="removeTeam(team)">
+                                      <span class="icon is-small">
+                                        <i class="fas fa-trash-alt"></i>
+                                      </span>
+                                    </a>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="field">
+                    <div class="control">
+                        <input class="input" type="text" v-model="newTeamName" v-on:keyup.enter="addTeam" placeholder="Add a Team">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="node_modules/vue/dist/vue.js"></script>
+<script src="index.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+</body>
+</html>
