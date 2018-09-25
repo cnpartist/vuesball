@@ -32,10 +32,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(game, index) in games" @change="updateTeams" v-if="(!game.team1.hidden && !game.team2.hidden) || game.active">
+                    <tr v-for="(game, index) in games" @click="updateTeams" @change="updateTeams" v-if="(!game.team1.hidden && !game.team2.hidden) || game.active">
                         <td>{{ index + 1}}</td>
-                        <td v-bind:class="{'is-info': game.team1.highlighted }">{{ game.team1.name }}</td>
-                        <td v-bind:class="{'is-info': game.team2.highlighted }">{{ game.team2.name }}</td>
+                        <td v-bind:class="{'is-info': game.team1.highlighted, 'has-text-danger': game.team1.active}">{{ game.team1.name }}</td>
+                        <td v-bind:class="{'is-info': game.team2.highlighted, 'has-text-danger': game.team2.active}">{{ game.team2.name }}</td>
                         <td>
                             <div class="field">
                                 <div class="control">
@@ -56,7 +56,7 @@
                         </td>
                         <td>
                             <p class="control">
-                                <a class="button" @click="game.active = !game.active" v-bind:class="{'is-info': game.active, 'is-success': game.points1 && game.points2 }">
+                                <a class="button" @click="game.active = !game.active" v-bind:class="{'is-info': game.active, 'is-success': game.points1 !== null && game.points2 !== null}">
                                       <span class="icon is-small">
                                         <i class="fas fa-check-circle"></i>
                                       </span>
@@ -81,7 +81,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(team, index) in teams">
+                    <tr v-for="(team, index) in teams" v-bind:class="{'has-text-info': team.highlighted, 'has-text-danger': team.active}">
                         <td>{{ index + 1}}</td>
                         <td>{{ team.name }}</td>
                         <td>{{ team.gamesWon + team.gamesLost + team.gamesDrawn }}</td>
@@ -92,14 +92,14 @@
                         <td>
                             <div class="field has-addons">
                                 <p class="control">
-                                    <a class="button" @click="team.highlighted = !team.highlighted" v-bind:class="{'has-text-info': team.highlighted }">
+                                    <a class="button" @click="team.highlighted = !team.highlighted" v-bind:class="{'has-text-info': team.highlighted}">
                                       <span class="icon is-small">
                                         <i class="fas fa-eye"></i>
                                       </span>
                                     </a>
                                 </p>
                                 <p class="control">
-                                    <a class="button" @click="team.hidden = !team.hidden" v-bind:class="{'has-text-danger': team.hidden }">
+                                    <a class="button" @click="team.hidden = !team.hidden" v-bind:class="{'has-text-danger': team.hidden}">
                                       <span class="icon is-small">
                                         <i class="fas fa-minus-circle"></i>
                                       </span>
@@ -121,6 +121,25 @@
                     <div class="control">
                         <input class="input" type="text" v-model="newTeamName" v-on:keyup.enter="addTeam" placeholder="Add a Team">
                     </div>
+                    <div class="control" @change="updateTeams">
+                        <label class="checkbox">
+                            <input type="checkbox" v-model="options.autoHide">
+                            auto hide active teams
+                        </label>
+                    </div>
+                    <div class="control" @change="updateTeams">
+                        <label class="checkbox">
+                            <input type="checkbox">
+                            auto sort remaining games
+                        </label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <a class="button has-text-danger" @click="resetGames()">
+                            RESET
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -129,6 +148,6 @@
 
 <script src="node_modules/vue/dist/vue.js"></script>
 <script src="index.js"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </body>
 </html>

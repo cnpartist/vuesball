@@ -36,7 +36,11 @@ var vuesball = new Vue({
         active: false
       }
     },
-    newTeamName: ''
+    newTeamName: '',
+    options: {
+      autoHide: false,
+      autoSort: false
+    }
   },
   watch: {
     teams: {
@@ -65,8 +69,7 @@ var vuesball = new Vue({
       while (i < this.games.length) {
         if (this.games[i].team1 === team || this.games[i].team2 === team) {
           this.games.splice(i, 1)
-        }
-        else {
+        } else {
           i++
         }
       }
@@ -88,6 +91,7 @@ var vuesball = new Vue({
           this.games.push(game2)
         }
       }
+      this.updateTeams()
     },
     updateTeams: function () {
       for (i = 0; i < this.teams.length; i++) {
@@ -108,13 +112,11 @@ var vuesball = new Vue({
             if (game.points1 === game.points2) {
               game.team1.gamesDrawn++
               game.team2.gamesDrawn++
-            }
-            else {
+            } else {
               if (game.points1 > game.points2) {
                 game.team1.gamesWon++
                 game.team2.gamesLost++
-              }
-              else {
+              } else {
                 game.team2.gamesWon++
                 game.team1.gamesLost++
               }
