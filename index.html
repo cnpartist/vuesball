@@ -32,7 +32,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(game, index) in games" @click="updateTeams" @change="updateTeams" v-if="(!game.team1.hidden && !game.team2.hidden) || game.active">
+                    <tr v-for="(game, index) in games" @click="updateTeams" @change="updateTeams" v-if="(!game.team1.hidden && !game.team2.hidden && ((!game.team1.active && !game.team2.active) || !options.autoHide)) || game.active">
                         <td>{{ index + 1}}</td>
                         <td v-bind:class="{'is-info': game.team1.highlighted, 'has-text-danger': game.team1.active}">{{ game.team1.name }}</td>
                         <td v-bind:class="{'is-info': game.team2.highlighted, 'has-text-danger': game.team2.active}">{{ game.team2.name }}</td>
